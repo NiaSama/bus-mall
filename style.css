@@ -1,6 +1,10 @@
+* {
+  color: blue;
+  font-family: 'Helvetica';
+  outline: 1px dashed green;
+}
 
-#Merch-pic {
-  border: 2px solid yellow;
-  /* height: 300px;
-  width: auto; */
+img {
+  width: 150px;
+  margin:25px;
 }
