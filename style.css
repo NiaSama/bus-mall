@@ -1,7 +1,10 @@
+body {
+  background-color: azure;
+}
 * {
   color: blue;
   font-family: 'Helvetica';
-  outline: 1px dashed green;
+  outline: 1px dashed pink;
 }
 
 img {

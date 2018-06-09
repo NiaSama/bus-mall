@@ -1,0 +1,2 @@
+I want to create an app that satisfies the customer and meets their needs for the product. 
+I want to create an app that is interactive to the user. I also want to make a code that is dry and understandable for any other developer that wants to look at my code. For a market research team, I want to make the data that was inputed by the user to be easy to see and understand so that they can move forward to making great business decisions based on the data. 

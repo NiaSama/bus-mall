@@ -92,7 +92,7 @@ function handleClick(event) {
       console.log(event.target.id + ' has ' + Product.all[i].votes + ' votes in ' + Product.all[i].views + ' views.');
     }
   }
-  displayPics();
+  displayPics(); //why do i have to call this here instead of outside the handleClick function MARIOOOO@@@@@@@@@@@@@@@
 }
 //show tally using the list in the DOM once the event listner has been removed.
 function showTally() {
