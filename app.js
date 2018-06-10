@@ -20,7 +20,7 @@ Product.justViewed = [];
 Product.pics = [document.getElementById('left'), document.getElementById('center'), document.getElementById('right')];
 Product.tally = document.getElementById('tally');
 Product.totalClicks = 0;
-
+Product.dataArray = []; // pushing all 25 clicks from users here
 
 function Product(name) {
   this.name = name;
@@ -33,8 +33,15 @@ function Product(name) {
   }
   this.votes = 0;
   this.views = 0;
+  this.percentage = 0;
   Product.all.push(this);
 }
+
+Product.prototype.calculatePercentage = function() {
+  //votes/views * 100 then round = percentag
+  this.percentage = Math.round((this.votes / this.views) * 100);
+  
+};
 
 for (var i = 0; i < Product.names.length; i++) {
   new Product(Product.names[i]);
@@ -79,30 +86,77 @@ function handleClick(event) {
     Product.container.removeEventListener('click', handleClick);
     //show list after the last click
     showTally();
+    renderChart();
   }
   //this is how we direct the user to click on a specific image
-  if (event.target.id === 'img_container') {
-    return alert(' Need to click on an image. ');
+  if (event.target.id === 'image_container') {
+    alert(' Need to click on an image. ');
   }
-  //start to add  up the clicks and log it in the console
-  Product.totalClicks += 1;
-  for (var i = 0; i < Product.names.length; i++) {
-    if (event.target.id === Product.all[i].name) {
-      Product.all[i].votes += 1;
-      console.log(event.target.id + ' has ' + Product.all[i].votes + ' votes in ' + Product.all[i].views + ' views.');
+  else {
+    //start to add  up the clicks and log it in the console
+    Product.totalClicks += 1;
+    for (var i = 0; i < Product.names.length; i++) {
+      if (event.target.id === Product.all[i].name) {
+        Product.all[i].votes += 1;
+        console.log(event.target.id + ' has ' + Product.all[i].votes + ' votes in ' + Product.all[i].views + ' views.');
+      }
     }
+    displayPics(); //why do i have to call this here instead of outside the handleClick function MARIOOOO@@@@@@@@@@@@@@@
   }
-  displayPics(); //why do i have to call this here instead of outside the handleClick function MARIOOOO@@@@@@@@@@@@@@@
 }
 //show tally using the list in the DOM once the event listner has been removed.
 function showTally() {
   for (var i = 0; i < Product.all.length; i++) {
+    Product.all[i].calculatePercentage();
+    Product.dataArray.push(Product.all[i].percentage);
     var liEl = document.createElement('li');
-    liEl.textContent = Product.all[i].name + ' has ' + Product.all[i].votes + ' votes in ' + Product.all[i].views + ' views';
+    liEl.textContent = Product.all[i].name + ' has ' + Product.all[i].votes + ' votes in ' + Product.all[i].views + ' views, which is ' + Product.all[i].percentage + '%.';
     //append the li to the Product.tally created above globally for the ul
     Product.tally.appendChild(liEl);
   }
 }
 //event listener
 Product.container.addEventListener('click', handleClick);
-displayPics();
+displayPics(); //to show the first three pics 
+
+
+
+//first add the cdn link to the head of your html
+//find the chart object in the console and inspect it ex: myChart, myChart.data, myChart.datasets[0].data
+//the data renders how hight he bar chart will be
+//data: [], will hold the votes for each product image
+//Labels: ['red' etc] will hold the name for each product
+//myChart.update() is the method you will need to keep an eye on
+//ex: myChart.data.datasets[0].data[0] = 4 assigns a new value to it
+//myChart.update() //should change the value and update the chart
+
+// chart
+function renderChart() {
+  var ctx = document.getElementById('myChart').getContext('2d');
+  new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: ['bag', 'banana', 'bathroom', 'boots', 'breakfast', 'bubblegum', 'chair', 'cthulhu', 'dog-duck', 'dragon', 'pen', 'pet-sweep', 'scissors', 'shark', 'sweep', 'tauntaun', 'unicorn', 'usb', 'water-can', 'wine-glass'],
+      datasets: [
+        {
+          label: 'Number of Votes',
+          data: Product.dataArray, // data is all of the votes
+        }
+      ],
+      bacgroundColor: [
+        'green'
+      ],
+      borderWidth: 1,
+      borderColor: 'grey',
+      hoverBorderWidth: 3,
+      hoverBorderColor: 'black',
+    },
+    options: {
+      title: {
+        display: true,
+        text: 'Votes for Products',
+        fontSize: 25,
+      },
+    }
+  });
+}
