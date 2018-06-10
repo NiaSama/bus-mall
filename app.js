@@ -20,7 +20,7 @@ Product.justViewed = [];
 Product.pics = [document.getElementById('left'), document.getElementById('center'), document.getElementById('right')];
 Product.tally = document.getElementById('tally');
 Product.totalClicks = 0;
-
+Product.dataArray = []; // pushing all 25 clicks from users here
 
 function Product(name) {
   this.name = name;
@@ -79,6 +79,7 @@ function handleClick(event) {
     Product.container.removeEventListener('click', handleClick);
     //show list after the last click
     showTally();
+    renderChart();
   }
   //this is how we direct the user to click on a specific image
   if (event.target.id === 'img_container') {
@@ -106,3 +107,45 @@ function showTally() {
 //event listener
 Product.container.addEventListener('click', handleClick);
 displayPics();
+
+
+
+//first add the cdn link to the head of your html
+//find the chart object in the console and inspect it ex: myChart, myChart.data, myChart.datasets[0].data
+//the data renders how hight he bar chart will be
+//data: [], will hold the votes for each product image
+//Labels: ['red' etc] will hold the name for each product
+//myChart.update() is the method you will need to keep an eye on
+//ex: myChart.data.datasets[0].data[0] = 4 assigns a new value to it
+//myChart.update() //should change the value and update the chart
+
+// chart
+function renderChart() {
+  var ctx = document.getElementById('myChart').getContext('2d');
+  new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: ['bag', 'banana', 'bathroom', 'boots', 'breakfast', 'bubblegum', 'chair', 'cthulhu', 'dog-duck', 'dragon', 'pen', 'pet-sweep', 'scissors', 'shark', 'sweep', 'tauntaun', 'unicorn', 'usb', 'water-can', 'wine-glass'],
+      datasets: [
+        {
+          label: 'Number of Votes',
+          data: Product.all.votes, // data is all of the votes
+        }
+      ],
+      bacgroundColor: [
+        'green'
+      ],
+      borderWidth: 1,
+      borderColor: 'grey',
+      hoverBorderWidth: 3,
+      hoverBorderColor: 'black',
+    },
+    options: {
+      title: {
+        display: true,
+        text: 'Votes for Products',
+        fontSize: 25,
+      },
+    }
+  });
+}
