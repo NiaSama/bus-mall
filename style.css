@@ -1,13 +1,63 @@
-body {
-  background-color: azure;
-}
-* {
-  color: blue;
-  font-family: 'Helvetica';
-  outline: 1px dashed pink;
-}
 
 img {
   width: 150px;
   margin:25px;
+  outline: 1px dashed pink;
+}
+
+body {
+  background-color: #9AB5C1;
+  width: 800px;
+  margin: 0 auto;
+  margin-top: 20px; 
+}
+* {
+  font-family: Arial, Helvetica, sans-serif
+}
+
+
+h1:first-child{
+  border-bottom: 10px double;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 30px;
+  color: #c1867b;
+  text-shadow: 2px 2px 4px white;
+  padding: 5px;
+}
+h1:last-child {
+  border-bottom: 0px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 20px;
+  color: #c1867b;
+  text-shadow: 0px 0px 0px white;
+}
+.copy {
+  font-size: 15px;
+  color: #74698c;
+  font-family: Arial, Helvetica, sans-serif;
+  padding: 20px;
+}
+
+input {
+  background-color: #c1867b;
+  border: none;
+  color: white;
+  padding: 3px 5px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+}
+
+#items {
+  background-color: #c1867b;
+  color: white;
+  min-width: 60px;
+  z-index: 1;
+}
+span {
+  font-family: monospace;
+}
+footer {
+  color:#74698c;
+  font-size: 10px;
 }
