@@ -1,1 +1,2 @@
 # bus-mall
+This is the busmall app where users can go through a short survey on items they would potentially buy. The results are shown after the survey in percentage form and in a chart. Information is also saved in the local storage.
